@@ -1,0 +1,11 @@
+$title = "LEGAL DISCLAIMER"
+$message = @"
+This computer system is the property of Team [team number] LLC. By using this system, all users acknowledge notice of, and agree to comply with the Acceptable Use of Information Technology Resources Policy (AUP). 
+By using this system, you consent to these terms and conditions. Use is also consent to monitoring, logging, and use of logging to prosecute abuse.
+If you do not wish to comply with these terms and conditions, you must LOG OFF IMMEDIATELY.
+"@
+
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "LegalNoticeCaption" -Value $title
+Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "LegalNoticeText" -Value $message
+
+Write-Host "Legal disclaimer banner has been set successfully."
