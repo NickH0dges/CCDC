@@ -1,0 +1,11 @@
+## This script disables user accounts that are less than a day old ##
+$users = Get-ADUser -Filter * -Properties WhenCreated
+
+foreach ($user in $users) {
+    $creationDate = $user.WhenCreated
+
+    if ($creationDate -gt (Get-Date).AddDays(-1)) {
+        Disable-ADAccount -Identity $user.SamAccountName
+        Write-Host "Account $($user.SamAccountName) has been disabled because it is less than 1 day old."
+    }
+}
