@@ -1,0 +1,14 @@
+### AD password policy ##
+Import-Module ActiveDirectory
+
+# Set the minimum password length
+Set-ADDefaultDomainPasswordPolicy -MinPasswordLength 10
+
+# Set password expiration (in days)
+Set-ADDefaultDomainPasswordPolicy -MaxPasswordAge (New-TimeSpan -Days 30)
+
+# Set minimum password age (in days)
+Set-ADDefaultDomainPasswordPolicy -MinPasswordAge (New-TimeSpan -Days 1)
+
+# Enforce password complexity
+Set-ADDefaultDomainPasswordPolicy -PasswordComplexityEnabled $true
