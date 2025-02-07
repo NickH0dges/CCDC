@@ -1,0 +1,24 @@
+# Define registry path and value
+$RegistryPath = "HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters"
+$ValueName = "YourValueNameHere"  # Replace with the actual registry value name
+$NewValue = 1  # Change value to 1
+
+# Ensure PowerShell is running as Administrator
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator")) {
+    Write-Host "This script requires administrative privileges. Please run PowerShell as Administrator." -ForegroundColor Red
+    exit
+}
+
+# Check if the registry key exists
+if (-not (Test-Path $RegistryPath)) {
+    Write-Host "Registry path does not exist: $RegistryPath" -ForegroundColor Red
+    exit
+}
+
+# Modify the registry value
+try {
+    Set-ItemProperty -Path $RegistryPath -Name $ValueName -Value $NewValue -Force
+    Write-Host "Successfully changed $ValueName to $NewValue in $RegistryPath" -ForegroundColor Green
+} catch {
+    Write-Host "Failed to modify registry. Error: $_" -ForegroundColor Red
+}
